@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-md-6 m-auto text-center">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% elif message.tags == "error"%}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-6 m-auto">
+            <h4 class="text-center">
+                {{ contact.surname }} {{ contact.name }} {{ contact.patronymic }}
+            </h4>
+            <div class="card card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Phone : {{ contact.phone_number }}
+                    </li>
+                    {% if contact.email %}
+                        <li class="list-group-item">
+                            Email : {{ contact.email }}
+                        </li>
+                    {% endif %}
+                    {% if contact.address %}
+                        <li class="list-group-item">
+                            Address : {{ contact.address }}
+                        </li>
+                    {% endif %}
+                    {% if contact.comment %}
+                        <li class="list-group-item">
+                            Comment : {{ contact.comment }}
+                        </li>
+                    {% endif %}
+                </ul>
+                <div class="mt-2 mx-auto">
+                    <a href="{% url 'edit' contact.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete' contact.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
